@@ -7,6 +7,8 @@
     <title>Waleed's Interactive Resume</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
+        /* Animations */
+        
         @keyframes gradient {
             0% {
                 background-position: 0% 50%;
@@ -61,6 +63,7 @@
                 width: 100%
             }
         }
+        /* Base Styles */
         
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -75,9 +78,10 @@
             align-items: center;
             color: #333;
         }
+        /* Container Styles */
         
         #game-container {
-            width: 90%;
+            width: 95%;
             max-width: 800px;
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
@@ -86,16 +90,17 @@
             overflow: hidden;
             transform: scale(0.9);
             transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            margin: 40px 0;
+            margin: 20px 10px;
         }
         
         #game-container.active {
             transform: scale(1);
         }
+        /* Section Styles */
         
         .section {
             display: none;
-            padding: 40px;
+            padding: 20px;
             text-align: center;
             opacity: 0;
         }
@@ -105,55 +110,66 @@
             opacity: 1;
             animation: scaleIn 0.5s forwards;
         }
+        /* Bio Section */
         
         .bio-section {
-            padding: 30px;
+            padding: 20px;
             text-align: center;
             background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.7));
             border-radius: 15px;
-            margin: 20px;
+            margin: 15px;
             box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
             backdrop-filter: blur(4px);
             border: 1px solid rgba(255, 255, 255, 0.18);
         }
+        /* Contact Info */
         
         .contact-info {
             display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-            margin: 20px 0;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            margin: 15px 0;
+            padding: 0 10px;
         }
         
         .contact-item {
+            width: 100%;
+            max-width: 300px;
             display: flex;
             align-items: center;
+            justify-content: center;
             gap: 8px;
-            padding: 8px 16px;
+            padding: 10px;
             background: linear-gradient(45deg, #12c2e9, #c471ed);
             border-radius: 25px;
             color: white;
             transition: transform 0.3s;
             text-decoration: none;
+            font-size: 0.9rem;
+            word-break: break-word;
         }
         
         .contact-item:hover {
             transform: scale(1.05);
         }
+        /* Typography */
         
         h1 {
-            font-size: 2.5em;
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
             background: linear-gradient(45deg, #12c2e9, #c471ed, #f64f59);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            margin-bottom: 20px;
+            margin: 15px 0;
+            padding: 0 10px;
+            text-align: center;
         }
         
         h2 {
             color: #2c3e50;
-            font-size: 2em;
-            margin-bottom: 30px;
+            font-size: clamp(1.3rem, 3vw, 2rem);
+            margin-bottom: 20px;
             position: relative;
         }
         
@@ -167,24 +183,26 @@
             height: 3px;
             background: linear-gradient(90deg, #12c2e9, #c471ed);
         }
+        /* Skills Section */
         
         .skill-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 15px;
-            margin: 20px 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 10px;
+            padding: 10px;
+            margin: 15px 0;
         }
         
         .skill-badge {
             background: linear-gradient(135deg, #667eea, #764ba2);
             color: white;
-            padding: 10px 20px;
+            padding: 8px 12px;
             border-radius: 25px;
-            font-size: 0.9em;
+            font-size: 0.8rem;
             transition: all 0.3s;
             display: flex;
             align-items: center;
+            justify-content: center;
             gap: 8px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
@@ -193,59 +211,37 @@
             transform: scale(1.1) rotate(5deg);
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
         }
+        /* Experience and Project Cards */
         
-        .experience-card {
+        .experience-card,
+        .project-card {
             background: white;
             border-radius: 15px;
-            padding: 20px;
-            margin: 20px 0;
+            padding: 15px;
+            margin: 15px 10px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s;
             text-align: left;
         }
         
-        .experience-card:hover {
-            transform: translateY(-5px);
-        }
-        
-        .project-card {
-            background: white;
-            border-radius: 15px;
-            padding: 25px;
-            margin: 20px 0;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s;
-            position: relative;
-            overflow: hidden;
-        }
-        
+        .experience-card:hover,
         .project-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
         }
         
-        .project-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.8), transparent);
-            transform: translateX(-100%);
-            transition: 0.5s;
+        .experience-card ul,
+        .project-card ul {
+            padding-left: 20px;
+            margin: 10px 0;
         }
-        
-        .project-card:hover::before {
-            transform: translateX(100%);
-        }
+        /* Tech Stack */
         
         .tech-stack {
             display: flex;
-            gap: 10px;
-            margin-top: 10px;
             flex-wrap: wrap;
+            gap: 8px;
             justify-content: center;
+            padding: 10px;
         }
         
         .tech-badge {
@@ -255,25 +251,30 @@
             font-size: 0.8em;
             color: #666;
         }
+        /* Buttons */
         
         button {
-            padding: 12px 30px;
-            margin-top: 25px;
+            width: 100%;
+            max-width: 250px;
+            margin: 15px auto;
+            padding: 12px 20px;
             background: linear-gradient(45deg, #12c2e9, #c471ed, #f64f59);
             border: none;
             border-radius: 25px;
             color: white;
-            font-size: 18px;
+            font-size: 1rem;
             cursor: pointer;
             transition: all 0.3s;
             position: relative;
             overflow: hidden;
+            display: block;
         }
         
         button:hover {
             transform: scale(1.05);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
+        /* Progress Bar */
         
         .progress-container {
             width: 100%;
@@ -290,6 +291,90 @@
             width: 0%;
             transition: width 0.3s ease;
         }
+        /* Progress Dots */
+        
+        .progress-dots {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 1000;
+        }
+        
+        @media (max-width: 768px) {
+            .progress-dots {
+                top: auto;
+                bottom: 20px;
+                right: auto;
+                left: 50%;
+                transform: translateX(-50%);
+                flex-direction: row;
+                gap: 8px;
+            }
+        }
+        /* Mobile Optimizations */
+        
+        @media (max-width: 480px) {
+            .section {
+                padding: 15px;
+            }
+            h2 {
+                font-size: 1.5rem;
+                margin: 15px 0;
+            }
+            .skill-badge {
+                font-size: 0.75rem;
+                padding: 6px 10px;
+            }
+            .contact-item {
+                font-size: 0.8rem;
+            }
+            .experience-card,
+            .project-card {
+                padding: 12px;
+                margin: 12px 8px;
+            }
+            button {
+                padding: 10px 15px;
+                font-size: 0.9rem;
+            }
+        }
+        /* Tablet Optimization */
+        
+        @media (min-width: 481px) and (max-width: 768px) {
+            .contact-info {
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .contact-item {
+                width: auto;
+            }
+            .skill-container {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+        }
+        /* Landscape Mode */
+        
+        @media (max-height: 600px) and (orientation: landscape) {
+            #game-container {
+                margin: 10px;
+            }
+            .section {
+                padding: 10px;
+            }
+            .experience-card,
+            .project-card {
+                margin: 10px 5px;
+            }
+            .contact-info {
+                margin: 10px 0;
+            }
+        }
+        /* Typing Effect */
         
         .typing-effect {
             overflow: hidden;
@@ -297,28 +382,25 @@
             margin: 0 auto;
             animation: typing 3.5s steps(40, end);
         }
+        /* Print Styles */
         
-        @media (max-width: 768px) {
-            #game-container {
-                width: 95%;
-                margin: 20px;
+        @media print {
+            body {
+                background: none;
+                color: black;
             }
-            h1 {
-                font-size: 2em;
+            #game-container {
+                box-shadow: none;
+                margin: 0;
+                width: 100%;
             }
             .section {
-                padding: 20px;
+                page-break-inside: avoid;
             }
-            .skill-container {
-                gap: 10px;
-            }
+            .progress-container,
+            .progress-dots,
             button {
-                padding: 10px 20px;
-                font-size: 16px;
-            }
-            .contact-info {
-                flex-direction: column;
-                align-items: center;
+                display: none;
             }
         }
     </style>
@@ -332,7 +414,6 @@
     <div id="game-container">
         <div id="intro" class="section active">
             <h1 class="typing-effect">Welcome to Waleed's Resume!</h1>
-
             <div class="bio-section">
                 <h2><i class="fas fa-user-circle"></i> About Me</h2>
                 <p>A passionate Software Developer based in Dubai, UAE, with a proven track record in developing scalable applications and implementing innovative solutions. With expertise spanning Python, ReactJS, and Laravel, I bring 4+ years of hands-on
@@ -439,252 +520,200 @@
                     <div class="skill-badge"><i class="fab fa-git-alt"></i> Git</div>
                     <div class="skill-badge"><i class="fas fa-chart-line"></i> Matplotlib</div>
                     <div class="skill-badge"><i class="fas fa-database"></i> Pandas</div>
-                    <div class="skill-badge">
-                        <i class="fab<div class=" skill-badge "><i class="fab fa-laravel "></i> Laravel</div>
-                    <div class="skill-badge "><i class="fab fa-php "></i> PHP</div>
-                    <div class="skill-badge "><i class="fas fa-bolt "></i> Livewire</div>
-                    <div class="skill-badge "><i class="fas fa-infinity "></i> CI/CD</div>
+                    <div class="skill-badge"><i class="fab fa-laravel"></i> Laravel</div>
+                    <div class="skill-badge"><i class="fab fa-php"></i> PHP</div>
+                    <div class="skill-badge"><i class="fas fa-bolt"></i> Livewire</div>
+                    <div class="skill-badge"><i class="fas fa-infinity"></i> CI/CD</div>
                 </div>
-                <button class="next-btn ">
-                    <i class="fas fa-arrow-right icon "></i>Next
+                <button class="next-btn">
+                    <i class="fas fa-arrow-right icon"></i>Next
                 </button>
             </div>
 
-            <div id="education " class="section ">
-                <h2><i class="fas fa-university icon "></i>Education</h2>
-                <div class="experience-card ">
+            <div id="education" class="section">
+                <h2><i class="fas fa-university icon"></i>Education</h2>
+                <div class="experience-card">
                     <h3>B.Sc. in Information Technology</h3>
-                    <p><i class="fas fa-map-marker-alt icon "></i>Karary University, Khartoum, Sudan</p>
-                    <p><i class="fas fa-calendar-alt icon "></i>December 2018</p>
+                    <p><i class="fas fa-map-marker-alt icon"></i>Karary University, Khartoum, Sudan</p>
+                    <p><i class="fas fa-calendar-alt icon"></i>December 2018</p>
                     <h4>Key Courses:</h4>
-                    <div class="tech-stack ">
-                        <span class="tech-badge ">MySQL for Analytics</span>
-                        <span class="tech-badge ">Data Science</span>
-                        <span class="tech-badge ">Google Analytics</span>
-                        <span class="tech-badge ">Oracle Cloud Architecture</span>
+                    <div class="tech-stack">
+                        <span class="tech-badge">MySQL for Analytics</span>
+                        <span class="tech-badge">Data Science</span>
+                        <span class="tech-badge">Google Analytics</span>
+                        <span class="tech-badge">Oracle Cloud Architecture</span>
                     </div>
                 </div>
-                
                 <button id="restart-btn">
                     <i class="fas fa-redo icon"></i>Restart
-                </button>                       
-                    </div>
-                </div>
+                </button>
             </div>
+        </div>
+    </div>
 
-            <script>
-                document.addEventListener('DOMContentLoaded', () => {
-                    const sections = document.querySelectorAll('.section');
-                    let currentSection = 0;
-                    const progressBar = document.getElementById('progress-bar');
-                    const gameContainer = document.getElementById('game-container');
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = document.querySelectorAll('.section');
+            let currentSection = 0;
+            const progressBar = document.getElementById('progress-bar');
+            const gameContainer = document.getElementById('game-container');
 
-                    // Add touch swipe functionality
-                    let touchStartX = 0;
-                    let touchEndX = 0;
+            // Add touch swipe functionality
+            let touchStartX = 0;
+            let touchEndX = 0;
 
-                    function updateProgress() {
-                        const progress = (currentSection / (sections.length - 1)) * 100;
-                        progressBar.style.width = `${progress}%`;
-                    }
+            function updateProgress() {
+                const progress = (currentSection / (sections.length - 1)) * 100;
+                progressBar.style.width = `${progress}%`;
+            }
 
-                    function showSection(index) {
-                        sections.forEach((section, i) => {
-                            if (i === index) {
-                                section.classList.add('active');
-                                section.style.animation = 'slideInRight 0.5s forwards';
-                            } else {
-                                section.classList.remove('active');
-                            }
-                        });
-                        updateProgress();
-                        updateDots();
-                    }
-
-                    function nextSection() {
-                        if (currentSection < sections.length - 1) {
-                            currentSection++;
-                            showSection(currentSection);
-                        }
-                    }
-
-                    function previousSection() {
-                        if (currentSection > 0) {
-                            currentSection--;
-                            showSection(currentSection);
-                        }
-                    }
-
-                    function restartJourney() {
-                        console.log("Restart button clicked ");
-
-                        // Ensure gameContainer and progressBar are present
-                        if (!gameContainer || !progressBar) {
-                            console.error("Essential elements missing ");
-                            return;
-                        }
-
-                        // Remove active class from game container
-                        gameContainer.classList.remove('active');
-                        console.log("Game container reset ");
-
-                        // Reset current section to intro
-                        currentSection = 0;
-                        showSection(0);
-                        console.log("First section displayed ");
-
-                        // Reset progress bar
-                        progressBar.style.width = '0%';
-                        console.log("Progress bar reset ");
-
-                        // Ensure the intro section animation plays
-                        const introSection = document.getElementById('intro');
-                        if (introSection) {
-                            introSection.style.animation = 'none';
-                            introSection.offsetHeight; // Trigger reflow
-                            introSection.style.animation = null;
-                            console.log("Intro animation reset ");
-                        } else {
-                            console.error("Intro section missing ");
-                        }
-                    }
-
-                    // Add click event listeners
-                    document.getElementById('start-btn').addEventListener('click', () => {
-                        gameContainer.classList.add('active');
-                        nextSection();
-                    });
-
-                    document.querySelectorAll('.next-btn').forEach(button => {
-                        button.addEventListener('click', nextSection);
-                    });
-
-                    // Update restart button event listener
-                    const restartBtn = document.getElementById('restart-btn');
-                    if (restartBtn) {
-                        restartBtn.addEventListener('click', restartJourney);
+            function showSection(index) {
+                sections.forEach((section, i) => {
+                    if (i === index) {
+                        section.classList.add('active');
+                        section.style.animation = 'slideInRight 0.5s forwards';
                     } else {
-                        console.error("Restart button is missing ");
+                        section.classList.remove('active');
                     }
+                });
+                updateProgress();
+                updateDots();
+            }
 
-                    // Rest of the JavaScript remains the same (keyboard navigation, touch navigation, etc.)
-
-                    // Keyboard navigation
-                    document.addEventListener('keydown', (e) => {
-                        if (e.key === 'ArrowRight' || e.key === 'Space') {
-                            nextSection();
-                        } else if (e.key === 'ArrowLeft') {
-                            previousSection();
-                        }
-                    });
-
-                    // Touch navigation
-                    document.addEventListener('touchstart', (e) => {
-                        touchStartX = e.changedTouches[0].screenX;
-                    });
-
-                    document.addEventListener('touchend', (e) => {
-                        touchEndX = e.changedTouches[0].screenX;
-                        handleSwipe();
-                    });
-
-                    function handleSwipe() {
-                        const swipeThreshold = 50;
-                        const swipeDistance = touchEndX - touchStartX;
-
-                        if (Math.abs(swipeDistance) > swipeThreshold) {
-                            if (swipeDistance > 0) {
-                                previousSection();
-                            } else {
-                                nextSection();
-                            }
-                        }
-                    }
-
-                    // Add hover animations to skill badges
-                    document.querySelectorAll('.skill-badge').forEach(badge => {
-                        badge.addEventListener('mouseover', () => {
-                            badge.style.transform = 'scale(1.1) rotate(5deg)';
-                        });
-
-                        badge.addEventListener('mouseout', () => {
-                            badge.style.transform = 'scale(1) rotate(0deg)';
-                        });
-                    });
-
-                    // Add floating animation to project cards
-                    document.querySelectorAll('.project-card').forEach(card => {
-                        card.addEventListener('mouseover', () => {
-                            card.style.animation = 'float 3s ease-in-out infinite';
-                        });
-
-                        card.addEventListener('mouseout', () => {
-                            card.style.animation = 'none';
-                        });
-                    });
-
-                    // Add progress indicator dots
-                    const progressDots = document.createElement('div');
-                    progressDots.className = 'progress-dots';
-                    progressDots.style.cssText = `
-            position: fixed;
-            right: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        `;
-
-                    sections.forEach((_, index) => {
-                        const dot = document.createElement('div');
-                        dot.style.cssText = `
-                width: 10px;
-                height: 10px;
-                border-radius: 50%;
-                background: rgba(255, 255, 255, 0.5);
-                cursor: pointer;
-                transition: all 0.3s;
-            `;
-                        dot.addEventListener('click', () => {
-                            currentSection = index;
-                            showSection(index);
-                        });
-                        progressDots.appendChild(dot);
-                    });
-
-                    document.body.appendChild(progressDots);
-
-                    // Update active dot
-                    function updateDots() {
-                        const dots = progressDots.children;
-                        Array.from(dots).forEach((dot, index) => {
-                            if (index === currentSection) {
-                                dot.style.background = 'white';
-                                dot.style.transform = 'scale(1.5)';
-                            } else {
-                                dot.style.background = 'rgba(255, 255, 255, 0.5)';
-                                dot.style.transform = 'scale(1)';
-                            }
-                        });
-                    }
-
-                    // Add observer for section changes
-                    const observer = new MutationObserver(() => {
-                        updateDots();
-                    });
-
-                    sections.forEach(section => {
-                        observer.observe(section, {
-                            attributes: true
-                        });
-                    });
-
-                    // Initialize
+            function nextSection() {
+                if (currentSection < sections.length - 1) {
+                    currentSection++;
                     showSection(currentSection);
+                }
+            }
+
+            function previousSection() {
+                if (currentSection > 0) {
+                    currentSection--;
+                    showSection(currentSection);
+                }
+            }
+
+            // Start button
+            document.getElementById('start-btn').addEventListener('click', () => {
+                gameContainer.classList.add('active');
+                nextSection();
+            });
+
+            // Next buttons
+            document.querySelectorAll('.next-btn').forEach(button => {
+                button.addEventListener('click', nextSection);
+            });
+
+            // Restart button
+            const restartBtn = document.getElementById('restart-btn');
+            if (restartBtn) {
+                restartBtn.addEventListener('click', () => {
+                    // Reset current section to intro
+                    currentSection = 0;
+                    showSection(0);
+
+                    // Reset progress bar
+                    progressBar.style.width = '0%';
+
+                    // Reset game container animation
+                    gameContainer.classList.remove('active');
+
+                    // Force intro section to show
+                    const introSection = document.getElementById('intro');
+                    if (introSection) {
+                        introSection.classList.add('active');
+                        introSection.style.animation = 'none';
+                        introSection.offsetHeight; // Trigger reflow
+                        introSection.style.animation = null;
+                    }
+
+                    // Hide other sections
+                    sections.forEach((section, index) => {
+                        if (index !== 0) {
+                            section.classList.remove('active');
+                        }
+                    });
+
+                    // Update dots
                     updateDots();
                 });
-            </script>
+            }
+
+            // Keyboard navigation
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowRight' || e.key === 'Space') {
+                    nextSection();
+                } else if (e.key === 'ArrowLeft') {
+                    previousSection();
+                }
+            });
+
+            // Touch navigation
+            document.addEventListener('touchstart', (e) => {
+                touchStartX = e.changedTouches[0].screenX;
+            });
+
+            document.addEventListener('touchend', (e) => {
+                touchEndX = e.changedTouches[0].screenX;
+                handleSwipe();
+            });
+
+            function handleSwipe() {
+                const swipeThreshold = 50;
+                const swipeDistance = touchEndX - touchStartX;
+
+                if (Math.abs(swipeDistance) > swipeThreshold) {
+                    if (swipeDistance > 0) {
+                        previousSection();
+                    } else {
+                        nextSection();
+                    }
+                }
+            }
+
+            // Add progress indicator dots
+            const progressDots = document.createElement('div');
+            progressDots.className = 'progress-dots';
+
+            sections.forEach((_, index) => {
+                const dot = document.createElement('div');
+                dot.style.cssText = `
+                    width: 10px;
+                    height: 10px;
+                    border-radius: 50%;
+                    background: rgba(255, 255, 255, 0.5);
+                    cursor: pointer;
+                    transition: all 0.3s;
+                `;
+                dot.addEventListener('click', () => {
+                    currentSection = index;
+                    showSection(index);
+                });
+                progressDots.appendChild(dot);
+            });
+
+            document.body.appendChild(progressDots);
+
+            // Update active dot
+            function updateDots() {
+                const dots = progressDots.children;
+                Array.from(dots).forEach((dot, index) => {
+                    if (index === currentSection) {
+                        dot.style.background = 'white';
+                        dot.style.transform = 'scale(1.5)';
+                    } else {
+                        dot.style.background = 'rgba(255, 255, 255, 0.5)';
+                        dot.style.transform = 'scale(1)';
+                    }
+                });
+            }
+
+            // Initialize
+            showSection(currentSection);
+            updateDots();
+        });
+    </script>
 </body>
 
 </html>
